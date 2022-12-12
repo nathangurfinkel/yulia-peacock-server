@@ -8,9 +8,6 @@
 
 const { MongoClient } = require('mongodb');
 const Db = process.env.ATLAS_URI;
-console.log('----------ENVARIABLE-----------');
-console.log('process.env.ATLAS_URI: ', process.env.ATLAS_URI);
-console.log('------------end----------------');
 
 const client = new MongoClient(Db, {
   useNewUrlParser: true,
