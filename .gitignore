@@ -11,7 +11,7 @@ node_modules
 logs
 
 # dotenv environment variables
-# .env
+config.env
 
 # local env files
 # .env.local
@@ -20,5 +20,4 @@ logs
 .vscode
 
 # misc
-
 
