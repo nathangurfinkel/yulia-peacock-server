@@ -32,7 +32,7 @@ app.use((req, res, next) => {
 });
 
 // set api route for record
-app.use('/api/record', require('./routes/record'));
+// app.use('/api/record', require('./routes/record'));
 
 
 
