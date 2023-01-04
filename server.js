@@ -34,6 +34,7 @@ app.use((req, res, next) => {
 
 // routes
 app.use(require('./routes/appointment'));
+app.use(require('./routes/resumes'));
 
 // driver for connecting to MongoDB
 const dbo = require('./db/conn');
