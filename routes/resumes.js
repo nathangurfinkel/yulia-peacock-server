@@ -27,7 +27,7 @@ const ObjectId = require('mongodb').ObjectId;
 // get all resumes
 recordRoutes.route('/resumes').get(function (req, res) {
   // console.log('req', req);
-  let db_connect = dbo.getDb('natangurfinkel');
+  let db_connect = dbo.getDb('yulia_peacock');
   db_connect
     .collection('appointments')
     .find({})
@@ -39,7 +39,7 @@ recordRoutes.route('/resumes').get(function (req, res) {
 
 // get resume by id
 recordRoutes.route('/resumes/:id').get(function (req, res) {
-    let db_connect = dbo.getDb('natangurfinkel');
+    let db_connect = dbo.getDb('yulia_peacock');
     let myquery = { _id: ObjectId(req.params.id) };
     db_connect
 
@@ -53,7 +53,7 @@ recordRoutes.route('/resumes/:id').get(function (req, res) {
 
 // create resume
 recordRoutes.route('/resumes/add').post(function (req, response) {
-    let db_connect = dbo.getDb('natangurfinkel');
+    let db_connect = dbo.getDb('yulia_peacock');
     let myobj = {
         identifier: req.body.identifier,
 
@@ -75,7 +75,7 @@ recordRoutes.route('/resumes/add').post(function (req, response) {
 
 // update resume
 recordRoutes.route('/resumes/update/:id').post(function (req, response) {
-    let db_connect = dbo.getDb('natangurfinkel');
+    let db_connect = dbo.getDb('yulia_peacock');
     let myquery = { _id: ObjectId(req.params.id) };
     let newvalues = {
         $set: {
@@ -102,7 +102,7 @@ recordRoutes.route('/resumes/update/:id').post(function (req, response) {
 
 // delete resume
 recordRoutes.route('/resumes/delete/:id').delete(function (req, response) {
-    let db_connect = dbo.getDb('natangurfinkel');
+    let db_connect = dbo.getDb('yulia_peacock');
     let myquery = { _id: ObjectId(req.params.id) };
     db_connect.collection('resumes').deleteOne(myquery, function (err, res) {
         if (err) throw err;
