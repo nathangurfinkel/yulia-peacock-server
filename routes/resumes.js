@@ -55,6 +55,8 @@ recordRoutes.route('/resumes/:id').get(function (req, res) {
 recordRoutes.route('/resumes/add').post(function (req, response) {
     let db_connect = dbo.getDb('natangurfinkel');
     let myobj = {
+        identifier: req.body.identifier,
+
         name: req.body.name,
         email: req.body.email,
         summary: req.body.summary,
@@ -77,6 +79,7 @@ recordRoutes.route('/resumes/update/:id').post(function (req, response) {
     let myquery = { _id: ObjectId(req.params.id) };
     let newvalues = {
         $set: {
+            identifier: req.body.identifier,
             name: req.body.name,
             email: req.body.email,
             summary: req.body.summary,
