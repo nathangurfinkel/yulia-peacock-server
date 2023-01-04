@@ -29,7 +29,7 @@ recordRoutes.route('/resumes').get(function (req, res) {
   // console.log('req', req);
   let db_connect = dbo.getDb('yulia_peacock');
   db_connect
-    .collection('appointments')
+    .collection('resumes')
     .find({})
     .toArray(function (err, result) {
       if (err) throw err;
