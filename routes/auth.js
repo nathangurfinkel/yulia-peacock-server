@@ -19,16 +19,26 @@ const ObjectId = require('mongodb').ObjectId;
 
 recordRoutes.route('/signup').post(function (req, response) {
     let db_connect = dbo.getDb('yulia_peacock');
+    let hashedPassword = bcrypt.hashSync(req.body.password, 8);
     let myobj = {
+        // name: req.body.name,
         email: req.body.email,
-        password: bcrypt.hashSync(req.body.password, 8),
+        password: hashedPassword,
     };
-    db_connect.collection('users').insertOne(myobj, function (err, res) {
+    //check if user exists in the database by email then create user if not
+    let myquery = { email: req.body.email };
+    db_connect.collection('users').
+findOne(myquery, function (err, result) {
+
         if (err) throw err;
-        response.json(res);
+        if (result) return response.status(404).send('User already exists.');
+        db_connect.collection('users').insertOne(myobj, function (err, res) {
+            if (err) throw err;
+            response.json(res);
+        });
     });
-    }
-);
+});
+
 
 // signin
 
@@ -41,7 +51,6 @@ recordRoutes.route('/signin').post(function (req, response) {
 
 (myquery, function (err, result) {
 
-
         if (err) throw err;
         if (!result) return response.status(404).send('No user found.');
         let passwordIsValid = bcrypt.compareSync(req.body.password, result.password);
@@ -50,7 +59,10 @@ recordRoutes.route('/signin').post(function (req, response) {
             expiresIn: 86400 // expires in 24 hours
         });
         response.status(200).send({ auth: true, token: token });
-    });
+    });//   code: 'ERR_HTTP_HEADERS_SENT' this is  waht i get from the above code
+
+
+
 });
 
 
