@@ -24,18 +24,21 @@ const ObjectId = require('mongodb').ObjectId;
 // phone: string
 // }
 
-// get all resumes
+// get all resumes by user id
 recordRoutes.route('/resumes').get(function (req, res) {
-  // console.log('req', req);
-  let db_connect = dbo.getDb('yulia_peacock');
-  db_connect
-    .collection('resumes')
-    .find({})
-    .toArray(function (err, result) {
-      if (err) throw err;
-      res.json(result);
-    });
+    let db_connect = dbo.getDb('yulia_peacock');
+    let myquery = { user_id: req.query.user_id };
+    db_connect
+
+        .collection('resumes')
+        .find
+        (myquery)
+        .toArray(function (err, result) {
+            if (err) throw err;
+            res.json(result);
+        });
 });
+
 
 // get resume by id
 recordRoutes.route('/resumes/:id').get(function (req, res) {

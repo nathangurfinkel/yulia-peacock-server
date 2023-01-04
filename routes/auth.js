@@ -21,7 +21,7 @@ recordRoutes.route('/signup').post(function (req, response) {
     let db_connect = dbo.getDb('yulia_peacock');
     let hashedPassword = bcrypt.hashSync(req.body.password, 8);
     let myobj = {
-        // name: req.body.name,
+        
         email: req.body.email,
         password: hashedPassword,
     };
@@ -56,14 +56,17 @@ recordRoutes.route('/signin').post(function (req, response) {
         let passwordIsValid = bcrypt.compareSync(req.body.password, result.password);
         if (!passwordIsValid) return response.status(401).send({ auth: false, token: null });
         let token = jwt.sign({ id: result._id }, 'secret', {
-            expiresIn: 86400 // expires in 24 hours
+            expiresIn: 720 * 60 * 60 // expires in 720 hours
         });
-        response.status(200).send({ auth: true, token: token });
+        response.status(200).send({ userId: result._id, token: token, expiration:  720 * 60 * 60 });
     });//   code: 'ERR_HTTP_HEADERS_SENT' this is  waht i get from the above code
 
 
 
 });
+
+//get user id by token
+
 
 
 

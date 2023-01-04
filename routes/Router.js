@@ -3,14 +3,17 @@
 const express = require('express');
 const router = express.Router();
 const content = require('./content');
+const appointments = require('./appointment');
 const resumes = require('./resumes');
 // const users = require('./users');
 const auth = require('./auth');
 
-router.use('/content', content);
-router.use('/resumes', resumes);
+
+router.use('/', auth );
+router.use('/', content);
+router.use('/', resumes);
 // router.use('/users', users);
-router.use('/auth', auth);
+
 
 
 module.exports = router;
