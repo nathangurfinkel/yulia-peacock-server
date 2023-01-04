@@ -7,6 +7,8 @@
  */
 
 // initialize express
+const jwt = require("jsonwebtoken");
+
 const express = require('express');
 const app = express();
 app.use(express.json());
@@ -33,8 +35,9 @@ app.use((req, res, next) => {
 });
 
 // routes
-app.use(require('./routes/appointment'));
-app.use(require('./routes/resumes'));
+
+app.use('/api', require('./routes/Router'));
+
 
 // driver for connecting to MongoDB
 const dbo = require('./db/conn');

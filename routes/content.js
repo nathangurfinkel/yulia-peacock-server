@@ -77,4 +77,5 @@ recordRoutes.route('/content/update/:id').post(function (req, response) {
     });
 });
 
+module.exports = recordRoutes;
 
