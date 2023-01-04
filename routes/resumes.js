@@ -55,8 +55,8 @@ recordRoutes.route('/resumes/:id').get(function (req, res) {
 recordRoutes.route('/resumes/add').post(function (req, response) {
     let db_connect = dbo.getDb('yulia_peacock');
     let myobj = {
+        user_id: req.body.user_id,
         identifier: req.body.identifier,
-
         name: req.body.name,
         email: req.body.email,
         summary: req.body.summary,
@@ -65,7 +65,8 @@ recordRoutes.route('/resumes/add').post(function (req, response) {
         awards: req.body.awards,
         experience: req.body.experience,
         education: req.body.education,
-        phone: req.body.phone
+        phone: req.body.phone,
+        last_updated: new Date()
     };
     db_connect.collection('resumes').insertOne(myobj, function (err, res) {
         if (err) throw err;
@@ -79,6 +80,8 @@ recordRoutes.route('/resumes/update/:id').post(function (req, response) {
     let myquery = { _id: ObjectId(req.params.id) };
     let newvalues = {
         $set: {
+            user_id: req.body.user_id,
+
             identifier: req.body.identifier,
             name: req.body.name,
             email: req.body.email,
@@ -89,6 +92,8 @@ recordRoutes.route('/resumes/update/:id').post(function (req, response) {
             experience: req.body.experience,
             education: req.body.education,
             phone: req.body.phone
+            ,
+            last_updated: new Date()
         }
     };
     db_connect.collection('resumes').
