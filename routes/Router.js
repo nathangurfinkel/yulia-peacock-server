@@ -9,7 +9,7 @@ const resumes = require('./resumes');
 const auth = require('./auth');
 
 
-router.use('/', auth );
+router.use('/auth', auth);
 router.use('/', content);
 router.use('/', resumes);
 // router.use('/users', users);

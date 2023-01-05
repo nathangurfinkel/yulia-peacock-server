@@ -5,12 +5,12 @@
 // signin checks if the user exists in the database and returns a JWT token
 
 
-
 const express = require('express');
 const recordRoutes = express.Router();
 const dbo = require('../db/conn');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const secret = 'kL4Z4Ggfh5K7JvBBapQ947y9c68gGJY7';
 
 // This help convert the id from string to ObjectId for the _id.
 const ObjectId = require('mongodb').ObjectId;
@@ -55,10 +55,14 @@ recordRoutes.route('/signin').post(function (req, response) {
         if (!result) return response.status(404).send('No user found.');
         let passwordIsValid = bcrypt.compareSync(req.body.password, result.password);
         if (!passwordIsValid) return response.status(401).send({ auth: false, token: null });
-        let token = jwt.sign({ id: result._id }, 'secret', {
-            expiresIn: 720 * 60 * 60 // expires in 720 hours
+        let token = jwt.sign({ id: result._id }, secret, {
+            expiresIn: 720 * 60 * 60
         });
-        response.status(200).send({ userId: result._id, token: token, expiration:  720 * 60 * 60 });
+        //get expiresAt from token
+        let decoded = jwt.decode(token);
+        let expiresAt = decoded.exp * 1000;
+
+        response.status(200).send({ userId: result._id, token: token, expiresAt: expiresAt });
     });//   code: 'ERR_HTTP_HEADERS_SENT' this is  waht i get from the above code
 
 
