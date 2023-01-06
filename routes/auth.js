@@ -26,7 +26,7 @@ recordRoutes.route("/signup").post(function (req, response) {
   };
   //check if user exists in the database by email then create user if not
   let myquery = { email: req.body.email };
-  
+
   db_connect.collection("users").findOne(myquery, function (err, result) {
     if (err) throw err;
     if (result) return response.status(401).send("User already exists.");
@@ -40,6 +40,7 @@ recordRoutes.route("/signup").post(function (req, response) {
 // signin
 
 recordRoutes.route("/signin").post(function (req, response) {
+  console.log(req.body);
   let db_connect = dbo.getDb("yulia_peacock");
   let myquery = { email: req.body.email };
   db_connect.collection("users").findOne(myquery, function (err, result) {
