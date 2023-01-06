@@ -35,7 +35,7 @@ recordRoutes.route("/resumes").get(function (req, res) {
     }
     // the token is valid
     let db_connect = dbo.getDb("yulia_peacock");
-    // get user id from params 
+    // get user id from params
     let user_id = req.query.user_id;
     console.log("user_id", user_id);
     // filter by user id and sort by date
@@ -62,6 +62,8 @@ recordRoutes.route("/resumes/:id").get(function (req, res) {
 
 // create resume
 recordRoutes.route("/resumes/add").post(function (req, response) {
+  console.log("req.body", req.body);
+  console.log("resume add    ");
   let db_connect = dbo.getDb("yulia_peacock");
   let myobj = {
     user_id: req.body.user_id,
@@ -100,7 +102,9 @@ recordRoutes.route("/resumes/add").post(function (req, response) {
 // }
 recordRoutes.route("/resumes/update/:id").post(function (req, response) {
   let db_connect = dbo.getDb("yulia_peacock");
+
   let myquery = { _id: ObjectId(req.params.id) };
+
   let newvalues = {
     $set: {
       identifier: req.body.identifier,
