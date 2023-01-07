@@ -53,6 +53,8 @@ recordRoutes.route("/resumes").get(function (req, res) {
 // get resume by id
 recordRoutes.route("/resumes/:id").get(function (req, res) {
   let db_connect = dbo.getDb("yulia_peacock");
+  console.log ("req.params.id", req.params.id);
+  console.log ("req.params", req.params);
   let myquery = { _id: ObjectId(req.params.id) };
   db_connect.collection("resumes").findOne(myquery, function (err, result) {
     if (err) throw err;
@@ -102,7 +104,8 @@ recordRoutes.route("/resumes/add").post(function (req, response) {
 // }
 recordRoutes.route("/resumes/update/:id").post(function (req, response) {
   let db_connect = dbo.getDb("yulia_peacock");
-
+  console.log ("req.params.id", req.params.id);
+  console.log ("req.params", req.params);
   let myquery = { _id: ObjectId(req.params.id) };
 
   let newvalues = {
